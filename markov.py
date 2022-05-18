@@ -1,4 +1,4 @@
-"""Generate Markov text from text files."""
+"""Generate Markov text from text files.""" 
 
 from random import choice
 
@@ -10,9 +10,12 @@ def open_and_read_file(file_path):
     the file's contents as one string of text.
     """
 
-    # your code goes here
+    contents = open(file_path).read()
 
-    return 'Contents of your file as one long string'
+    #close file
+
+    return contents
+
 
 
 def make_chains(text_string):
@@ -40,11 +43,23 @@ def make_chains(text_string):
         [None]
     """
 
+
+    contents = open_and_read_file('green-eggs.txt') 
+    contents_list = []
     chains = {}
+    words = contents.split()
+    contents_list.append(words)
 
-    # your code goes here
+    words_range = range(len(words) - 2)
 
-    return chains
+    for i in words_range:
+        tup_key = (words[i], words[i + 1])  #keys of dict
+        if tup_key not in chains:
+            chains[tup_key] = [words[i + 2]]
+        elif tup_key in chains:
+            chains[tup_key].append(words[i + 2])
+        
+    print(chains)
 
 
 def make_text(chains):
